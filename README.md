@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dashboard Next.js
 
-## Getting Started
+Dashboard moderne développé avec Next.js et Tailwind CSS.
 
-First, run the development server:
+## 🚀 Installation
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Structure
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                 # Pages et layouts (App Router)
+├── components/
+│   ├── ui/             # Composants réutilisables
+│   └── shared/         # Composants spécifiques dashboard
+├── lib/                # Utilitaires et API
+└── styles/             # CSS personnalisé
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📝 Conventions
 
-## Learn More
+- `.js` pour utilitaires, config, API
+- `.jsx` pour composants React
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Stack Technique
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js 14** - Framework React
+- **Tailwind CSS** - Styles utilitaires
+- **App Router** - Système de routage moderne
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Configuration
 
-## Deploy on Vercel
+Créer `.env.local` :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+NEXT_PUBLIC_API_URL=https://china-test.api-medev.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Scripts
+
+```bash
+npm run dev      # Serveur développement
+npm run build    # Build production
+npm run start    # Serveur production
+npm run lint     # ESLint
+```
+
+## 🏗 Composants
+
+- `Sidebar` - Navigation principale
+- `TopBar` - Barre supérieure
+- `Widget` - Conteneurs métriques
+- `Card` - Conteneur générique
+
+## 🌐 API
+
+Fonctions API dans `lib/api.js` pour communication avec l'API externe.
