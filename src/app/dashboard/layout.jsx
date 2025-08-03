@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { LayoutDashboard, ClipboardList, FileText, CreditCard, Users, UserCog } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { getMe } from '../../lib/api/auth/me'
 import { logout } from '../../lib/api/auth/logout'
@@ -160,40 +161,28 @@ export default function DashboardLayout({ children }) {
                         {/* Navigation */}
                         <nav className="flex-1 px-4 py-6 space-y-2">
                             <Link href="/dashboard" className={getLinkClasses('/dashboard')}>
-                                <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                                </svg>
+                                <LayoutDashboard className="h-5 w-5 mr-3" />
                                 Tableau de bord
                             </Link>
                             <Link href="/dashboard/requests" className={getLinkClasses('/dashboard/requests')}>
-                                <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                </svg>
+                                <ClipboardList className="h-5 w-5 mr-3" />
                                 Demandes
                             </Link>
                             <Link href="/dashboard/invoices" className={getLinkClasses('/dashboard/invoices')}>
-                                <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
+                                <FileText className="h-5 w-5 mr-3" />
                                 Factures
                             </Link>
                             <Link href="/dashboard/payments" className={getLinkClasses('/dashboard/payments')}>
-                                <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                <CreditCard className="h-5 w-5 mr-3" />
                                 Paiements
                             </Link>
                             <Link href="/dashboard/clients" className={getLinkClasses('/dashboard/clients')}>
-                                <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
+                                <Users className="h-5 w-5 mr-3" />
                                 Clients
                             </Link>
                             {adminInfo?.role === 'superadmin' && (
                                 <Link href="/dashboard/admins" className={getLinkClasses('/dashboard/admins')}>
-                                    <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m-9 9.197a4 4 0 105.196-5.197m0 0A7.5 7.5 0 1013.5 11c-2.998 0-5.74-1.1-7.843-2.903m15.686 8.9A9.001 9.001 0 1021 7.5c0 .205-.01.408-.028.61m0 0A8.99 8.99 0 0121 10.5M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.703.609 5.18 1.64" />
-                                    </svg>
+                                    <UserCog className="h-5 w-5 mr-3" />
                                     Administrateurs
                                 </Link>
                             )}
