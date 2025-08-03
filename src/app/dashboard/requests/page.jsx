@@ -2,12 +2,17 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import AssignedRequestsTable from '../../../components/admin/AssignedRequestsTable'
+import AllRequestsTable from '../../../components/admin/AllRequestsTable'
+
 
 export default function RequestsPage() {
     const [isRefreshing, setIsRefreshing] = useState(false)
+    const [refreshKey, setRefreshKey] = useState(0)
 
     const handleRefresh = async () => {
         setIsRefreshing(true)
+        setRefreshKey(prev => prev + 1) // Ajoute cette ligne
         setTimeout(() => {
             setIsRefreshing(false)
             window.location.reload()
@@ -53,40 +58,10 @@ export default function RequestsPage() {
             </div>
 
             {/* Demandes assignées */}
-            <div className="bg-white rounded-xl border border-gray-200">
-                <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-lg font-medium text-gray-900">Mes demandes assignées</h2>
-                    <p className="text-sm text-gray-500 mt-1">Demandes qui vous sont attribuées</p>
-                </div>
-                <div className="p-6">
-                    <div className="text-center py-12">
-                        <div className="w-16 h-16 bg-gray-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                        </div>
-                        <p className="text-gray-500">Tableau des demandes assignées à implémenter</p>
-                    </div>
-                </div>
-            </div>
+            <AssignedRequestsTable refreshTrigger={refreshKey} />
 
             {/* Toutes les demandes */}
-            <div className="bg-white rounded-xl border border-gray-200">
-                <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-lg font-medium text-gray-900">Toutes les demandes</h2>
-                    <p className="text-sm text-gray-500 mt-1">Liste complète des demandes clients</p>
-                </div>
-                <div className="p-6">
-                    <div className="text-center py-12">
-                        <div className="w-16 h-16 bg-gray-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                        </div>
-                        <p className="text-gray-500">Tableau des demandes à implémenter</p>
-                    </div>
-                </div>
-            </div>
+            <AllRequestsTable refreshTrigger={refreshKey} />
 
             {/* Guide */}
             <div className="bg-white rounded-xl border border-gray-200">
