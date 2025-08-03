@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import CreateInvoiceForm from '../../../../../components/shared/CreateInvoiceForm'
+import CreateInvoiceForm from '../../../../../components/admin/CreateInvoiceForm'
 
 export default function CreateInvoicePage() {
     const params = useParams()
@@ -19,6 +19,7 @@ export default function CreateInvoicePage() {
                 setIsLoading(true)
                 setError(null)
 
+                // Simulation - remplacer par vraie API
                 setTimeout(() => {
                     setRequest({
                         id: requestId,
@@ -119,7 +120,7 @@ export default function CreateInvoicePage() {
                                 </span>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="space-y-1">
                                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Client</p>
                                     <p className="text-sm font-semibold text-gray-900">{request.client.full_name}</p>
@@ -130,12 +131,6 @@ export default function CreateInvoicePage() {
                                     <p className="text-sm font-semibold text-gray-900">
                                         {new Date(request.created_at).toLocaleDateString('fr-FR')}
                                     </p>
-                                    <p className="text-sm text-gray-600">
-                                        {new Date(request.created_at).toLocaleTimeString('fr-FR', {
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        })}
-                                    </p>
                                 </div>
                                 <div className="space-y-1">
                                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">ID Demande</p>
@@ -143,46 +138,19 @@ export default function CreateInvoicePage() {
                                 </div>
                             </div>
 
-                            <div className="border-t border-gray-100 pt-6">
-                                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Description</p>
-                                <div className="bg-gray-50 rounded-lg p-4">
-                                    <p className="text-sm text-gray-700 leading-relaxed">
-                                        {request.description || "Aucune description fournie pour cette demande."}
-                                    </p>
+                            {request.description && (
+                                <div className="border-t border-gray-100 pt-6 mt-6">
+                                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Description</p>
+                                    <div className="bg-gray-50 rounded-lg p-4">
+                                        <p className="text-sm text-gray-700">{request.description}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
                     {/* Formulaire */}
                     <CreateInvoiceForm requestId={requestId} onSuccess={handleSuccess} />
-
-                    {/* Guide */}
-                    <div className="bg-white rounded-xl border border-gray-200">
-                        <div className="p-6 border-b border-gray-100">
-                            <h2 className="text-lg font-medium text-gray-900">Guide de création</h2>
-                        </div>
-                        <div className="p-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                <div>
-                                    <h3 className="text-sm font-medium text-gray-900 mb-3">Articles</h3>
-                                    <ul className="text-sm text-gray-600 space-y-2">
-                                        <li>• Ajoutez au moins un article</li>
-                                        <li>• Nom, prix unitaire et quantité requis</li>
-                                        <li>• Sous-total calculé automatiquement</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 className="text-sm font-medium text-gray-900 mb-3">Frais additionnels</h3>
-                                    <ul className="text-sm text-gray-600 space-y-2">
-                                        <li>• Frais optionnels (livraison, emballage)</li>
-                                        <li>• Sélectionnez le type de frais</li>
-                                        <li>• Entrez le montant</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </>
             )}
         </div>
