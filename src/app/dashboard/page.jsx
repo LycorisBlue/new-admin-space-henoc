@@ -1,12 +1,40 @@
 'use client'
 
+import { useAuth } from '../../lib/hooks/useAuth'
+
+
 export default function DashboardPage() {
+    const { isLoading, isAuthenticated, userRole } = useAuth(true) // true = page protégée
+
+    // Si pas authentifié, le hook gère déjà la redirection
+    // Mais on peut ajouter une sécurité supplémentaire
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-gray-600">Redirection en cours...</p>
+                </div>
+            </div>
+        )
+    }
+
+    // Contenu principal du dashboard (protégé)
     return (
         <div className="space-y-8">
-            {/* En-tête */}
-            <div>
-                <h1 className="text-2xl font-semibold text-gray-900">Tableau de bord</h1>
-                <p className="mt-1 text-sm text-gray-500">Vue d'ensemble de votre activité</p>
+            {/* En-tête avec info utilisateur */}
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-semibold text-gray-900">Tableau de bord</h1>
+                    <p className="mt-1 text-sm text-gray-500">Vue d'ensemble de votre activité</p>
+                </div>
+                {userRole && (
+                    <div className="text-right">
+                        <p className="text-sm text-gray-500">Connecté en tant que</p>
+                        <p className="text-sm font-medium text-gray-900 capitalize">
+                            {userRole === 'superadmin' ? 'Super Administrateur' : 'Administrateur'}
+                        </p>
+                    </div>
+                )}
             </div>
 
             {/* Actions */}

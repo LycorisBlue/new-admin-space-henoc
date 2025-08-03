@@ -2,15 +2,18 @@ class Constants {
     static API = {
         BASE_URL: "https://china-test.api-medev.com",
         ENDPOINTS: {
+            AUTH: '/auth',
             USERS: '/users',
-            DASHBOARD: '/dashboard'
+            REQUESTS: '/requests',
+            INVOICES: '/invoices',
+            PAYMENTS: '/payments'
         }
     }
 
-    static UI = {
-        COLORS: {
-            PRIMARY: '#3B82F6',
-            SUCCESS: '#10B981'
+    static HTTP = {
+        TIMEOUT: 10000,
+        HEADERS: {
+            'Content-Type': 'application/json'
         }
     }
 }
