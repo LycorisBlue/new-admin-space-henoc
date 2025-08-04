@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { downloadInvoicePdf, isPdfDownloadAvailable } from '../../lib/api/admin/invoice-pdf'
+import toast from 'react-hot-toast'
 import {
     User,
     FileText,
@@ -29,6 +31,36 @@ export default function InvoiceDetails({ invoiceId }) {
     const [invoice, setInvoice] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [isDownloadingPdf, setIsDownloadingPdf] = useState(false)
+
+    const handlePdfDownload = async () => {
+        const availability = isPdfDownloadAvailable(invoice)
+
+        if (!availability.available) {
+            toast.error(availability.reason)
+            return
+        }
+
+        setIsDownloadingPdf(true)
+
+        try {
+            const result = await downloadInvoicePdf(invoice.id)
+
+            if (result.success) {
+                toast.success('PDF téléchargé avec succès')
+            } else {
+                if (result.needsLogin) {
+                    return // La redirection sera gérée par useAuth
+                }
+                toast.error(result.message)
+            }
+        } catch (err) {
+            toast.error('Erreur lors du téléchargement')
+        } finally {
+            setIsDownloadingPdf(false)
+        }
+    }
+
 
     useEffect(() => {
         if (!invoiceId) return
@@ -384,7 +416,7 @@ export default function InvoiceDetails({ invoiceId }) {
                                         </div>
                                     </div>
                                     <p className="text-xs text-gray-500">
-                                        Confirmé par {payment.confirmed_by.name} • {formatDate(payment.created_at)}
+                                        Confirmé par {payment.confirmed_by.name}
                                     </p>
                                 </div>
                             ))}
@@ -429,9 +461,13 @@ export default function InvoiceDetails({ invoiceId }) {
                 <div className="p-6">
                     <h3 className="font-medium text-gray-900 mb-4">Actions</h3>
                     <div className="flex flex-wrap gap-3">
-                        <button className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
-                            <Download className="w-4 h-4" />
-                            Télécharger PDF
+                        <button
+                            onClick={handlePdfDownload}
+                            disabled={isDownloadingPdf}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 disabled:opacity-50"
+                        >
+                            <Download className={`w-4 h-4 ${isDownloadingPdf ? 'animate-spin' : ''}`} />
+                            {isDownloadingPdf ? 'Génération...' : 'Télécharger PDF'}
                         </button>
 
                         {!fullyPaid && invoice.permissions.can_modify && (

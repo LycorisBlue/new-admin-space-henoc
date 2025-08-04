@@ -13,6 +13,7 @@ import {
     formatDate
 } from '../../lib/api/admin/invoices'
 
+
 export default function InvoicesTable({ refreshTrigger = 0 }) {
     const [invoices, setInvoices] = useState([])
     const [pagination, setPagination] = useState(null)
@@ -367,13 +368,6 @@ export default function InvoicesTable({ refreshTrigger = 0 }) {
                                                         <Eye className="w-4 h-4" />
                                                         <span>Voir</span>
                                                     </Link>
-                                                    <button
-                                                        className="inline-flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors"
-                                                        title="Télécharger PDF"
-                                                    >
-                                                        <Download className="w-4 h-4" />
-                                                        <span>PDF</span>
-                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
